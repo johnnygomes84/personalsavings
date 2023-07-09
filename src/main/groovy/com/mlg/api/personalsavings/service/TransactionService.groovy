@@ -20,13 +20,17 @@ class TransactionService {
 
     @Transactional
     Transaction createTransaction(Transaction transaction) {
-        transaction.account = accountService.findById(transaction.account.id)
-        generateNewBalance(transaction)
-        accountService.updateBalance(transaction.account)
+        def account = accountService.findByAccountId(transaction.accountId)
+        account = generateNewBalance(transaction, account)
+        accountService.updateBalance(account)
         transactionRepository.save(transaction)
     }
 
     Page<Transaction> findAll(SearchContext searchContext) {
         transactionRepository.findAll(PageRequest.of(searchContext.page, searchContext.size))
+    }
+
+    List<Transaction> getTransactionsByAccountId(Long accountId) {
+        transactionRepository.findByAccountId(accountId)
     }
 }

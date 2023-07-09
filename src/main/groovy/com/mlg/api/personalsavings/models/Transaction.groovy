@@ -19,8 +19,7 @@ class Transaction implements Serializable {
     String id
     LocalDateTime transactionDate = LocalDateTime.now()
     TransactionType type
-    @DBRef
-    Account account
+    Long accountId
     String description
     @Field(targetType = FieldType.DECIMAL128)
     BigDecimal amount

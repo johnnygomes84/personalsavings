@@ -12,24 +12,25 @@ final class AccountUtils {
         new RandomDataGenerator().nextLong(000000, 999999)
     }
 
-    static Account generateNewBalance(Transaction transaction) {
+    static Account generateNewBalance(Transaction transaction, Account account) {
 
         switch (transaction.type) {
             case TransactionType.DEBIT:
-                if (!hasFunds(transaction)) {
+                if (!hasFunds(transaction, account)) {
                     throw new AccountException("Transaction exceeds current balance")
                 }
-                transaction.account.currentBalance -= transaction.amount
-                return
+                account.currentBalance -= transaction.amount
+                break
             case TransactionType.CREDIT:
-                transaction.account.currentBalance += transaction.amount
-                return
+                account.currentBalance += transaction.amount
+                break
             default:
-                transaction.account.currentBalance
+                account
         }
+        account
     }
 
-    static Boolean hasFunds(Transaction transaction) {
-        transaction.account.currentBalance - transaction.amount < 0 ? false : true
+    static Boolean hasFunds(Transaction transaction, Account account) {
+        account.currentBalance - transaction.amount < 0 ? false : true
     }
 }

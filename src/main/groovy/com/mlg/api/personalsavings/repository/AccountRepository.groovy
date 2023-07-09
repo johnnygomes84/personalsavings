@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface AccountRepository extends MongoRepository<Account, String> {
 
+    Optional<Account> findByAccountId(Long accountId)
 }

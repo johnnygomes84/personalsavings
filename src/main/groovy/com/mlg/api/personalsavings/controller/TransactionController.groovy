@@ -21,8 +21,13 @@ class TransactionController {
         ResponseEntity.ok(transactionService.findAll(searchContext))
     }
 
+    @GetMapping("/account/{accountId}")
+    ResponseEntity<List<Transaction>> findByAccountId(@PathVariable Long accountId) {
+        ResponseEntity.ok(transactionService.getTransactionsByAccountId(accountId))
+    }
+
     @PostMapping("/new")
-    ResponseEntity<Account> create(@RequestBody Transaction transaction) {
+    ResponseEntity<Transaction> create(@RequestBody Transaction transaction) {
         ResponseEntity.ok(transactionService.createTransaction(transaction))
     }
 }

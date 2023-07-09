@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TransactionRepository extends MongoRepository<Transaction, String> {
 
+    List<Transaction> findByAccountId(Long accountId)
 }
