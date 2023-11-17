@@ -14,11 +14,19 @@ class PersonService {
 
     private final PersonRepository personRepository
 
-    Person createPerson(Person person) {
+    Person createOrUpdate(Person person) {
         personRepository.save(person)
+    }
+
+    Person findById(String id) {
+        personRepository.findById(id).orElse(null)
     }
 
     Page<Person> findAll(SearchContext searchContext) {
         personRepository.findAll(PageRequest.of(searchContext.page, searchContext.size))
+    }
+
+    void deletePerson(String id) {
+        personRepository.deleteById(id)
     }
 }
